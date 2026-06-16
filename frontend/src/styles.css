@@ -28,8 +28,16 @@
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(circle at 50% 0%, rgba(61, 218, 215, 0.06), transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(167, 139, 250, 0.06), transparent 55%),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(61, 218, 215, 0.06),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(167, 139, 250, 0.06),
+      transparent 55%
+    ),
     var(--bg-void);
   font-family: var(--font-body);
   color: var(--text-primary);
@@ -65,7 +73,9 @@
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--text-muted);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .app__status-state.is-linked {
@@ -149,7 +159,10 @@
   border-radius: 50%;
   background: var(--bg-void);
   border: 1px solid var(--border);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .divider--linked::before {
@@ -169,8 +182,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(94, 230, 160, 0.16); }
-  50% { box-shadow: 0 0 0 8px rgba(94, 230, 160, 0.08); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(94, 230, 160, 0.16);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(94, 230, 160, 0.08);
+  }
 }
 
 /* roster list */
@@ -196,7 +214,10 @@
   font-size: 14px;
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease,
+    background 0.15s ease;
 }
 
 .user-card:hover:not(:disabled) {
@@ -352,5 +373,35 @@
 
   .panel {
     min-height: unset;
+  }
+}
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-content {
+  text-align: center;
+  color: white;
+}
+
+.loader-spinner {
+  width: 64px;
+  height: 64px;
+  border: 4px solid #ccc;
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

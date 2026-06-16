@@ -16,8 +16,8 @@ export function UserCard({ user, accent, disabled, onSelect }: UserCardProps) {
       disabled={disabled}
       aria-disabled={disabled}
     >
-      <span className="user-card__avatar">{user.name.charAt(0)}</span>
-      <span className="user-card__name">{user.name}</span>
+      <span className="user-card__avatar">{user.username.charAt(0)}</span>
+      <span className="user-card__name">{user.username}</span>
       {disabled && <span className="user-card__tag">linked elsewhere</span>}
     </button>
   );
