@@ -10,6 +10,7 @@ interface SplitPanelProps {
   disabledIds: Set<string>;
   onSelect: (user: User) => void;
   onRelease: () => void;
+  allUsers: User[];
 }
 
 export function SplitPanel({
@@ -20,6 +21,7 @@ export function SplitPanel({
   disabledIds,
   onSelect,
   onRelease,
+  allUsers,
 }: SplitPanelProps) {
   return (
     <section className="panel">
@@ -35,6 +37,7 @@ export function SplitPanel({
             user={selected}
             accent={accent}
             onRelease={onRelease}
+            allUsers={allUsers}
           />
         ) : (
           <UserList

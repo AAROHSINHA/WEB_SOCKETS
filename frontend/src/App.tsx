@@ -70,6 +70,7 @@ export default function App() {
         <SplitPanel
           label="pool a"
           accent="a"
+          allUsers={allUsers}
           users={leftUsers}
           selected={leftSelected}
           disabledIds={disabledOnLeft}
@@ -82,6 +83,7 @@ export default function App() {
         <SplitPanel
           label="pool b"
           accent="b"
+          allUsers={allUsers}
           users={rightUsers}
           selected={rightSelected}
           disabledIds={disabledOnRight}
