@@ -1,7 +1,11 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from routes.users import router as users_router
 
 app = FastAPI()
+app.include_router(users_router)
+
+
 # 1. Define the exact addresses that are allowed to talk to your server
 origins = [
     "http://localhost:5173",
