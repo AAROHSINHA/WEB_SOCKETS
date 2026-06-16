@@ -1,6 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from routes.users import router as users_router
+from utils.ConnectionManager import ConnectionManager
 
 app = FastAPI()
 app.include_router(users_router)
@@ -20,24 +21,24 @@ app.add_middleware(
     allow_methods=["*"],    # Allows all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],    # Allows all headers
 )
-@app.websocket("/ws/echo")
-async def websocket_endpoint(websocket: WebSocket):
-    # Accept an incoming web socket request
-    await websocket.accept()
-    # This is the basic start point. When an http request comes demanding
-    # for a websocket connection, we accept that
-    print("==> NEW WEBSOCKET CONNECTION ESTABLISHED")
+
+
+## 1. BASIC WEBSOCKET CONNECTION 
+# User logs in (gets selected in frontend)...a connection is made
+manager = ConnectionManager() # This is out connection registry
+
+# route - 
+@app.websocket("/ws/chat/{user_id}")
+async def websocket_init_connection(websocket: WebSocket, user_id: str):
+    # Pass the connection to out registry
+    await manager.connect(websocket=websocket, user_id=user_id)
 
     try:
         while True:
-            # This is infinite loop. signifies constant connection
-            # when data comes we recieve it and here in this case we resent it back
             data = await websocket.receive_text()
-            print("==> RECIEVED TEXT - ", data)
-            await websocket.send_text(f"==> BOUNCED BACK SAME DATA FROM SERVER - {data}")
-
-    # This when the websocket disconencts. network turns off etc
+            print(f"==> INBOX: Recieved text from {user_id} - {data}")
     except WebSocketDisconnect:
-        print("==> CONNECTION FROM CLIENT DROPPED")
+        manager.disconnect(user_id=user_id)
+
 
 
