@@ -15,13 +15,13 @@ interface SelectedUserViewProps {
   user: User;
   accent: "a" | "b";
   allUsers: User[];
-  onRelease: () => void;
+  setSelected: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 export function SelectedUserView({
   user,
   accent,
-  onRelease,
+  setSelected,
   allUsers,
 }: SelectedUserViewProps) {
   const [activeTabId, setActiveTabId] = useState<string | number | null>(
@@ -36,6 +36,7 @@ export function SelectedUserView({
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [, setWsMessages] = useState<string[]>([]);
 
+  // set up a connection when loaded
   useEffect(() => {
     if (!user) return;
     ws.current = new WebSocket(`ws://localhost:8000/ws/chat/${user.id}`);
@@ -54,6 +55,14 @@ export function SelectedUserView({
     };
   }, [user]);
 
+  // remove user connection when logout
+  const logout = () => {
+    if (ws.current) {
+      ws.current.close();
+    }
+
+    setSelected(null);
+  };
   const handleTabSelect = (id: string | number) => {
     setActiveTabId(id);
     setUnread((prev) => ({ ...prev, [id]: 0 }));
@@ -148,9 +157,9 @@ export function SelectedUserView({
         <button
           type="button"
           className="selected-view__release chat-peer-header__release"
-          onClick={onRelease}
+          onClick={logout}
         >
-          [ release ]
+          [ logout ]
         </button>
       </div>
 

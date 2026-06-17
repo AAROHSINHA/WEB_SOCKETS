@@ -75,7 +75,7 @@ export default function App() {
           selected={leftSelected}
           disabledIds={disabledOnLeft}
           onSelect={setLeftSelected}
-          onRelease={() => setLeftSelected(null)}
+          setSelected={setLeftSelected}
         />
 
         <Divider linked={linked} />
@@ -88,7 +88,7 @@ export default function App() {
           selected={rightSelected}
           disabledIds={disabledOnRight}
           onSelect={setRightSelected}
-          onRelease={() => setRightSelected(null)}
+          setSelected={setRightSelected}
         />
       </div>
     </div>

@@ -1,3 +1,4 @@
+import React from "react";
 import { User } from "../types";
 import { SelectedUserView } from "./SelectedUserView";
 import { UserList } from "./UserList";
@@ -9,7 +10,7 @@ interface SplitPanelProps {
   selected: User | null;
   disabledIds: Set<string>;
   onSelect: (user: User) => void;
-  onRelease: () => void;
+  setSelected: React.Dispatch<React.SetStateAction<User | null>>;
   allUsers: User[];
 }
 
@@ -20,8 +21,9 @@ export function SplitPanel({
   selected,
   disabledIds,
   onSelect,
-  onRelease,
+
   allUsers,
+  setSelected,
 }: SplitPanelProps) {
   return (
     <section className="panel">
@@ -36,7 +38,7 @@ export function SplitPanel({
           <SelectedUserView
             user={selected}
             accent={accent}
-            onRelease={onRelease}
+            setSelected={setSelected}
             allUsers={allUsers}
           />
         ) : (
